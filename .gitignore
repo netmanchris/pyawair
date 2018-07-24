@@ -1,0 +1,16 @@
+
+*.xml
+
+.idea/dictionaries/christopheryoung.xml
+
+.idea/encodings.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/pyawair.iml
+
+pyawair/secret.py
+
+tests/secret.py
