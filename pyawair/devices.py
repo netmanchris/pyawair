@@ -46,7 +46,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
     :param device_name: str which matches exactly to the name of a specific device
     :param device_name: str which matches exactly to the name of a specific device
     :param device_id: str or int which matches the specific awair device internal id number
-    :return: Object of Dict type which decribes the LED mode of the specified devices
+    :return: Object of Dict type which describes the LED mode of the specified devices
     """
     if device_name == None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
@@ -72,14 +72,15 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
 
 def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
     """
-        Function to get the LED mode for a single specific devices for the account
-        linked to the token
-        :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
-        :param device_name: str which matches exactly to the name of a specific device
-        :param device_name: str which matches exactly to the name of a specific device
-        :param device_id: str or int which matches the specific awair device internal id number
-        :return: Object of Dict type which decribes the LED mode of the specified devices
-        """
+    Function to get the timezone for a single specific devices for the account
+    linked to the token. Refer to column TZ in
+    https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_id: str or int which matches the specific awair device internal id number
+    :return: Object of Dict type which describes the timezone of the specified devices
+    """
     if device_name == None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
@@ -102,6 +103,15 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
 
 
 def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=None):
+    """
+    Function to get the display mode for a single specific devices for the account
+    linked to the token
+    :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_id: str or int which matches the specific awair device internal id number
+    :return: Object of Dict type which describes the display mode of the specified devices
+    """
     if device_name == None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
@@ -124,6 +134,15 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
 
 
 def get_dev_power_status(auth, device_name=None, device_type=None, device_id=None):
+    """
+    Function to get the power_status for a single specific devices for the account
+    linked to the token.
+    :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_id: str or int which matches the specific awair device internal id number
+    :return: Object of Dict type which describes the power status of the specified devices
+    """
     if device_name == None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
@@ -153,6 +172,18 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
 
 
 def set_device_preference(auth, new_mode, device_name=None, device_type=None, device_id=None):
+    """
+    Function to set the prefered mode for a single specific devices for the account
+    linked to the token.
+    :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
+    :param new_mode: str which matches the desired preference mode. Valid modes are
+    "general", "productivity", "sleep", "allergy", "baby"
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_name: str which matches exactly to the name of a specific device
+    :param device_id: str or int which matches the specific awair device internal id number
+    :return: Object of Dict type which contains a message of whether or not the set request was
+    implemented
+    """
     if device_name == None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)

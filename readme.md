@@ -13,11 +13,16 @@ The Awair Developer program is currently under beta. You may request a personal 
 with the awair team. 
 
 
-Once you get the token create a new variable called **token** and paste in the contents of the 
-token
+#### Creating yor Auth object
+Once you get the token create a new object of the AwairAuth type by passing in the token
+from the Awair Dev site as a str.
 
 ```python
->>> token = """paste_your_token_here"
+>>> auth = AwairAuth('''My_Token''')
+
+>>> auth.token
+My_Token'
+
 ```
 Now that you've captured the contents of your token, this will automatically be inserted into the
  auth headers during the HTTP request to the Awair API
@@ -27,8 +32,8 @@ Now that you've captured the contents of your token, this will automatically be 
  Issue the following command to get your user data
  
 ```python
- >>> from pyawair.devices import \**
- >>> get_user_data()
+ >>> from pyawair.devices import *
+ >>> get_user_data(auth)
   Out[3]: 
 {'dobDay': 23,
  'dobMonth': 11,
@@ -43,7 +48,7 @@ Now that you've captured the contents of your token, this will automatically be 
 Issue the following command to get all devices registered to your account
 
 ```python
-get_all_devices()
+get_all_devices(auth)
 Out[4]: 
 [{'deviceId': 55555,
   'deviceType': 'awair',
@@ -71,7 +76,7 @@ device by specifying the name of the device
 The following command will get the details for a device named **Bedroom_Awair**
 
 ```python
-get_dev_details('Bedroom_Awair')
+get_dev_details(auth, device_name='Bedroom_Awair')
 Out[4]: 
 {'deviceId': 55555,
  'deviceType': 'awair',
