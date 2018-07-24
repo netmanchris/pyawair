@@ -24,8 +24,15 @@ from the Awair Dev site as a str.
 My_Token'
 
 ```
-Now that you've captured the contents of your token, this will automatically be inserted into the
- auth headers during the HTTP request to the Awair API
+
+This object of type AwairAuth must be passed into all API calls to ensure that you can 
+successfully pass your authentication request to the Awair API.
+ 
+ 
+ ## Example Functions
+ 
+ The following functions shows some basic examples of working with the Awair Python binding to 
+ gather data from the Awair API. 
  
  #### Getting you User Data
  
