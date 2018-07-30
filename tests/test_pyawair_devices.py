@@ -7,7 +7,7 @@ from unittest import TestCase
 from secret import *
 from pyawair.devices import *
 
-dev1="Bedroom_Awair"   #Modify this variable to test against your own devices
+dev1="Bedroom Awair"   #Modify this variable to test against your own devices
 
 
 
