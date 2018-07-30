@@ -1,7 +1,5 @@
-
-
-import requests, json
-from pyawair.devices import *
+import json
+import requests
 
 
 def get_user_data(auth):
@@ -11,8 +9,9 @@ def get_user_data(auth):
     :return: Object of Dict type which contains current user data for this account
     """
     response = requests.get("http://developer-apis.awair.is/v1/users/self",
-                                headers=auth.headers)
+                            headers=auth.headers)
     return json.loads(response.text)
+
 
 def get_all_devices(auth):
     """
@@ -23,6 +22,7 @@ def get_all_devices(auth):
     response = requests.get("http://developer-apis.awair.is/v1/users/self/devices",
                             headers=auth.headers)
     return json.loads(response.text)['devices']
+
 
 def get_dev_details(auth, device_name):
     """
@@ -38,6 +38,7 @@ def get_dev_details(auth, device_name):
             return dev
     return "Device not found"
 
+
 def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
     """
     Function to get the LED mode for a single specific devices for the account
@@ -48,7 +49,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
     :param device_id: str or int which matches the specific awair device internal id number
     :return: Object of Dict type which describes the LED mode of the specified devices
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/led"
@@ -70,6 +71,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
     else:
         return "Device Not Found"
 
+
 def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
     """
     Function to get the timezone for a single specific devices for the account
@@ -81,7 +83,7 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
     :param device_id: str or int which matches the specific awair device internal id number
     :return: Object of Dict type which describes the timezone of the specified devices
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/timezone"
@@ -112,7 +114,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
     :param device_id: str or int which matches the specific awair device internal id number
     :return: Object of Dict type which describes the display mode of the specified devices
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/display"
@@ -143,7 +145,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
     :param device_id: str or int which matches the specific awair device internal id number
     :return: Object of Dict type which describes the power status of the specified devices
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/power-status"
@@ -167,10 +169,6 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
 """Following section deals with changing settings on the Awair devices"""
 
 
-#NOTE THE APPLICATION TYPE MUST BE DELIVERED IN JSON LOOK AT THE DOCS NEEDS TO
-#BE USING THE PREFS KEY. CREATE A DICTIONARY AND THEN USE JSON DUMPS
-
-
 def set_device_preference(auth, new_mode, device_name=None, device_type=None, device_id=None):
     """
     Function to set the prefered mode for a single specific devices for the account
@@ -184,7 +182,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
     :return: Object of Dict type which contains a message of whether or not the set request was
     implemented
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/preference"
@@ -194,11 +192,11 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
         try:
             if new_mode in modes:
                 print(f_url)
-                data = json.dumps({'pref' : new_mode})
-                response = requests.put(f_url, data= data, headers=auth.headers)
+                data = json.dumps({'pref': new_mode})
+                response = requests.put(f_url, data=data, headers=auth.headers)
                 return json.loads(response.text)
         except:
-            print ("mode setting not valid")
+            print("mode setting not valid")
     else:
         devices = get_all_devices(auth)
         for dev in devices:
@@ -215,9 +213,10 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
                     response = requests.put(f_url, data=data, headers=auth.headers)
                     return json.loads(response.text)
 
+
 def set_device_timezone(auth, timezone, device_name=None, device_type=None, device_id=None):
     """
-    This function takes a str inpu for the value timezone and applies it to a specific
+    This function takes a str input for the value timezone and applies it to a specific
     awair device. The device can be selected using the unique name of the device, or by
     using a combination of the device type and device id values specific to the API.
     :param timezone: str value of the desired timezone.
@@ -233,18 +232,18 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
     x = set_device_timezone(new_timezone, device_name="Bedroom_Awair")
 
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
         try:
             print(f_url)
-            data = json.dumps({'timezone' : timezone})
-            response = requests.post(f_url, data= data, headers=auth.headers)
+            data = json.dumps({'timezone': timezone})
+            response = requests.post(f_url, data=data, headers=auth.headers)
             return json.loads(response.text)
         except:
-            print ("mode setting not valid")
+            print("mode setting not valid")
     else:
         devices = get_all_devices(auth)
         for dev in devices:
@@ -254,7 +253,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
                 data_url = "/timezone"
                 f_url = base_url + dev_url + data_url
                 print(f_url)
-                data = json.dumps({'timezone' : timezone})
+                data = json.dumps({'timezone': timezone})
                 response = requests.post(f_url, data=data, headers=auth.headers)
                 return json.loads(response.text)
 
@@ -277,7 +276,7 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
 
     """
     modes = "on, dim, sleep"
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/led"
@@ -285,11 +284,11 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
         try:
             if led_mode in modes:
                 print(f_url)
-                data = json.dumps({'mode' : led_mode})
-                response = requests.post(f_url, data= data, headers=auth.headers)
+                data = json.dumps({'mode': led_mode})
+                response = requests.post(f_url, data=data, headers=auth.headers)
                 return json.loads(response.text)
         except:
-            print ("mode setting not valid")
+            print("mode setting not valid")
     else:
         devices = get_all_devices(auth)
         for dev in devices:

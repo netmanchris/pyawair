@@ -1,6 +1,3 @@
-
-
-import requests, json
 from pyawair.devices import *
 
 
@@ -14,11 +11,10 @@ def get_current_air_data(auth, device_name=None, device_type=None, device_id=Non
     :param device_id: str or int which matches the specific awair device internal id number
     :return: Object of Dict type which contains current air data
     """
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
         dev_url = device_type + "/" + str(device_id)
-        data_url
-        "/air-data/latest"
+        data_url = "/air-data/latest"
         f_url = base_url + dev_url + data_url
         print(f_url)
         response = requests.get(f_url, headers=auth.headers)
@@ -37,11 +33,10 @@ def get_current_air_data(auth, device_name=None, device_type=None, device_id=Non
 
 
 def get_5_min_average(auth, device_name=None, device_type=None, device_id=None):
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
         dev_url = device_type + "/" + str(device_id)
-        data_url
-        "/air-data/5-min-avg"
+        data_url = "/air-data/5-min-avg"
         f_url = base_url + dev_url + data_url
         print(f_url)
         response = requests.get(f_url, headers=auth.headers)
@@ -58,12 +53,12 @@ def get_5_min_average(auth, device_name=None, device_type=None, device_id=None):
                 response = requests.get(f_url, headers=auth.headers)
                 return json.loads(response.text)['data']
 
+
 def get_15_min_average(auth, device_name=None, device_type=None, device_id=None):
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
         dev_url = device_type + "/" + str(device_id)
-        data_url
-        "/air-data/15-min-avg"
+        data_url = "/air-data/15-min-avg"
         f_url = base_url + dev_url + data_url
         print(f_url)
         response = requests.get(f_url, headers=auth.headers)
@@ -80,12 +75,12 @@ def get_15_min_average(auth, device_name=None, device_type=None, device_id=None)
                 response = requests.get(f_url, headers=auth.headers)
                 return json.loads(response.text)['data']
 
+
 def get_raw_data(auth, device_name=None, device_type=None, device_id=None):
-    if device_name == None:
+    if device_name is None:
         base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
         dev_url = device_type + "/" + str(device_id)
-        data_url
-        "/air-data/raw"
+        data_url = "/air-data/raw"
         f_url = base_url + dev_url + data_url
         print(f_url)
         response = requests.get(f_url, headers=auth.headers)
