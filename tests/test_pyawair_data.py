@@ -7,7 +7,8 @@ from unittest import TestCase
 from secret import *
 from pyawair.data import *
 
-dev1="Bedroom Awair"   #Modify this variable to test against your own devices
+#dev1="Bedroom Awair"   #Modify this variable to test against your own devices
+dev1="Bedroom Glow"
 
 
 # TODO Remarked out failing tests

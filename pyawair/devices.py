@@ -54,7 +54,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
         dev_url = device_type + "/" + str(device_id)
         data_url = "/led"
         f_url = base_url + dev_url + data_url
-        print(f_url)
+        #print(f_url)
         response = requests.get(f_url, headers=auth.headers)
         return json.loads(response.text)
     elif device_name is not None:
@@ -65,7 +65,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/led"
                 f_url = base_url + dev_url + data_url
-                print(f_url)
+                #print(f_url)
                 response = requests.get(f_url, headers=auth.headers)
                 return json.loads(response.text)
     else:
@@ -88,7 +88,7 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
         dev_url = device_type + "/" + str(device_id)
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
-        print(f_url)
+        #print(f_url)
         response = requests.get(f_url, headers=auth.headers)
         return json.loads(response.text)
     else:
@@ -99,7 +99,7 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/timezone"
                 f_url = base_url + dev_url + data_url
-                print(f_url)
+                #print(f_url)
                 response = requests.get(f_url, headers=auth.headers)
                 return json.loads(response.text)
 
@@ -119,7 +119,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
         dev_url = device_type + "/" + str(device_id)
         data_url = "/display"
         f_url = base_url + dev_url + data_url
-        print(f_url)
+        #print(f_url)
         response = requests.get(f_url, headers=auth.headers)
         return json.loads(response.text)
     else:
@@ -130,7 +130,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/display"
                 f_url = base_url + dev_url + data_url
-                print(f_url)
+                #print(f_url)
                 response = requests.get(f_url, headers=auth.headers)
                 return json.loads(response.text)
 
@@ -150,7 +150,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
         dev_url = device_type + "/" + str(device_id)
         data_url = "/power-status"
         f_url = base_url + dev_url + data_url
-        print(f_url)
+        #print(f_url)
         response = requests.get(f_url, headers=auth.headers)
         return json.loads(response.text)
     else:
@@ -161,7 +161,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/power-status"
                 f_url = base_url + dev_url + data_url
-                print(f_url)
+                #print(f_url)
                 response = requests.get(f_url, headers=auth.headers)
                 return json.loads(response.text)
 
@@ -191,7 +191,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
         new_mode = new_mode
         try:
             if new_mode in modes:
-                print(f_url)
+                #print(f_url)
                 data = json.dumps({'pref': new_mode})
                 response = requests.put(f_url, data=data, headers=auth.headers)
                 return json.loads(response.text)
@@ -208,7 +208,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
                 modes = ['general', 'productivity', 'sleep', 'allergy', 'baby']
                 mode = new_mode
                 if mode in modes:
-                    print(f_url)
+                    #print(f_url)
                     data = json.dumps({'pref': new_mode})
                     response = requests.put(f_url, data=data, headers=auth.headers)
                     return json.loads(response.text)
@@ -238,7 +238,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
         try:
-            print(f_url)
+            #print(f_url)
             data = json.dumps({'timezone': timezone})
             response = requests.post(f_url, data=data, headers=auth.headers)
             return json.loads(response.text)
@@ -252,7 +252,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/timezone"
                 f_url = base_url + dev_url + data_url
-                print(f_url)
+                #print(f_url)
                 data = json.dumps({'timezone': timezone})
                 response = requests.post(f_url, data=data, headers=auth.headers)
                 return json.loads(response.text)
@@ -283,7 +283,7 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
         f_url = base_url + dev_url + data_url
         try:
             if led_mode in modes:
-                print(f_url)
+                #print(f_url)
                 data = json.dumps({'mode': led_mode})
                 response = requests.post(f_url, data=data, headers=auth.headers)
                 return json.loads(response.text)
@@ -299,9 +299,11 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
                 f_url = base_url + dev_url + data_url
                 try:
                     if led_mode in modes:
-                        print(f_url)
+                        #print(f_url)
                         data = json.dumps({'mode': led_mode})
                         response = requests.post(f_url, data=data, headers=auth.headers)
                         return json.loads(response.text)
                 except:
                     print("INVALID LED MODE SPECIFIED")
+
+
