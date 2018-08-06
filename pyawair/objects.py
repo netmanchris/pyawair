@@ -5,25 +5,31 @@
 # -*- coding: utf-8 -*-
 
 from pyawair.data import get_current_air_data
+from pyawair.data import get_all_devices
 
 class AwairDev:
     def __init__(self, device_name, auth):
-        self.auth = auth
+        self._auth = auth
         self.device_name = device_name
-        self.currentdata = get_current_air_data(auth, device_name=device_name)
-        self.score = self.currentdata[0]['score']
-        self.temp = self.currentdata[0]['sensors'][0]['value']
-        self.humid = self.currentdata[0]['sensors'][1]['value']
-        self.co2 = self.currentdata[0]['sensors'][2]['value']
-        self.voc = self.currentdata[0]['sensors'][3]['value']
-        self.timestamp = self.currentdata[0]['timestamp']
+        devices = get_all_devices(self._auth)
+        self._type = next((item for item in devices if item["name"] == device_name),
+                          False)['deviceType']  # get the device type
+        self._id = next((item for item in devices if item["name"] == device_name),
+                        False)['deviceId']  # get the device ID
+        self.current_data = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
+        self.score = self.current_data[0]['score']
+        self.temp = self.current_data[0]['sensors'][0]['value']
+        self.humid = self.current_data[0]['sensors'][1]['value']
+        self.co2 = self.current_data[0]['sensors'][2]['value']
+        self.voc = self.current_data[0]['sensors'][3]['value']
+        self.timestamp = self.current_data[0]['timestamp']
 
     def refresh(self):
-        self.currentdata = get_current_air_data(self.auth, device_name=self.device_name)
-        self.score = self.currentdata[0]['score']
-        self.temp = self.currentdata[0]['sensors'][0]['value']
-        self.humid = self.currentdata[0]['sensors'][1]['value']
-        self.co2 = self.currentdata[0]['sensors'][2]['value']
-        self.voc = self.currentdata[0]['sensors'][3]['value']
-        self.timestamp = self.currentdata[0]['timestamp']
+        self.current_data = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
+        self.score = self.current_data[0]['score']
+        self.temp = self.current_data[0]['sensors'][0]['value']
+        self.humid = self.current_data[0]['sensors'][1]['value']
+        self.co2 = self.current_data[0]['sensors'][2]['value']
+        self.voc = self.current_data[0]['sensors'][3]['value']
+        self.timestamp = self.current_data[0]['timestamp']
 
