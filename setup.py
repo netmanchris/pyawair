@@ -23,13 +23,13 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across test_machine.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.2',
+    version='0.0.6',
 
     description='Python binding for Awair Air Quality Device API',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/HPENetworking/PYHPEIMC',
+    url='https://github.com/netmanchris/pyawair',
 
     # Author details
     author='netmanchris',
