@@ -11,7 +11,9 @@ class AwairDev:
     def __init__(self, device_name, auth):
         self._auth = auth
         self.device_name = device_name
+
         devices = get_all_devices(self._auth)
+        
         self._type = next((item for item in devices if item["name"] == device_name),
                           False)['deviceType']  # get the device type
         self._id = next((item for item in devices if item["name"] == device_name),
