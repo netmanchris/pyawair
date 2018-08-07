@@ -6,32 +6,59 @@
 
 from pyawair.data import get_current_air_data
 from pyawair.data import get_all_devices
+import datetime
 
 class AwairDev:
-    def __init__(self, device_name, auth):
+    def __init__(self, device_name, auth, cache_time = 15):
         self._auth = auth
-        self.device_name = device_name
+        self._cache_time = cache_time
+        self._last_update = datetime.datetime.now()  # records the last update
 
+        self._device_name = device_name
+
+        # Get device type and ID from name
         devices = get_all_devices(self._auth)
-        
         self._type = next((item for item in devices if item["name"] == device_name),
                           False)['deviceType']  # get the device type
         self._id = next((item for item in devices if item["name"] == device_name),
                         False)['deviceId']  # get the device ID
-        self.current_data = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
-        self.score = self.current_data[0]['score']
-        self.temp = self.current_data[0]['sensors'][0]['value']
-        self.humid = self.current_data[0]['sensors'][1]['value']
-        self.co2 = self.current_data[0]['sensors'][2]['value']
-        self.voc = self.current_data[0]['sensors'][3]['value']
-        self.timestamp = self.current_data[0]['timestamp']
 
-    def refresh(self):
-        self.current_data = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
-        self.score = self.current_data[0]['score']
-        self.temp = self.current_data[0]['sensors'][0]['value']
-        self.humid = self.current_data[0]['sensors'][1]['value']
-        self.co2 = self.current_data[0]['sensors'][2]['value']
-        self.voc = self.current_data[0]['sensors'][3]['value']
-        self.timestamp = self.current_data[0]['timestamp']
+        # Initiate data fields
+        self._score = None
+        self._temp = None
+        self._humid = None
+        self._co2 = None
+        self._voc = None
+        self._dust = None
+        self._last_update = None
+
+        self.refresh()
+
+    def get_state(self, indicator):
+        now = datetime.datetime.now()
+        delta_min = (now - self._last_update).total_seconds() / 60
+        if delta_min > self._cache_time:
+            self.refresh()
+        if indicator == "score":
+            return self._score
+        if indicator == "temp":
+            return self._temp
+        if indicator == "humid":
+            return self._humid
+        if indicator == "co2":
+            return self._co2
+        if indicator == "voc":
+            return self._voc
+        if indicator == "dust":
+            return self._dust
+
+    def refresh(self) -> object:
+        current_data: list = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
+        self._score = current_data[0]['score']
+        self._temp = current_data[0]['sensors'][0]['value']
+        self._humid = current_data[0]['sensors'][1]['value']
+        self._co2 = current_data[0]['sensors'][2]['value']
+        self._voc = current_data[0]['sensors'][3]['value']
+        self._dust = current_data[0]['sensors'][4]['value']
+        self._last_update = datetime.datetime.now()  # records the time of the last update
 
