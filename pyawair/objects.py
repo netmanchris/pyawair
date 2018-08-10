@@ -6,10 +6,20 @@
 
 from pyawair.data import get_current_air_data
 from pyawair.data import get_all_devices
+from pyawair.auth import AwairAuth
 import datetime
 
 class AwairDev:
-    def __init__(self, device_name, auth, cache_time = 15):
+    def __init__(self, device_name: str, auth: AwairAuth, cache_time: float = 15):
+        """
+        Initialise AwairDev object.
+
+        :param device_name: The name of the device a can be found in the Awair app. Careful, case sensitive.
+        :param auth: The authentication object as created by the AwairAuth function.
+        :param cache_time: The time in minutes that the state values should be cached. When this time has expired, new values
+                           will be requested. Keep in mind that the API has daily limits so setting this too low might
+                           cause problems.
+        """
         self._auth = auth
         self._cache_time = cache_time
         self._last_update = datetime.datetime.now()  # records the last update
@@ -44,15 +54,13 @@ class AwairDev:
             self.refresh()
         return(self._data[indicator])
 
-    def refresh(self) -> object:
+    def refresh(self):
         """
         Function to refresh the state of the objects.
 
         The values are cached internally for the period equal to the cache
         time value. The refresh function refreshed these values, independent of the time that has past since the last
         refresh.
-
-        :return: The object itself.
         """
         current_data: list = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
         self._data['score'] = current_data[0]['score']
