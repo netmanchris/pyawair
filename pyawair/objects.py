@@ -24,12 +24,7 @@ class AwairDev:
                         False)['deviceId']  # get the device ID
 
         # Initiate data fields
-        self._score = None
-        self._temp = None
-        self._humid = None
-        self._co2 = None
-        self._voc = None
-        self._dust = None
+        self._data = {}
         self._last_update = None
 
         self.refresh()
@@ -47,18 +42,7 @@ class AwairDev:
         delta_min = (now - self._last_update).total_seconds() / 60
         if delta_min > self._cache_time:
             self.refresh()
-        if indicator == "score":
-            return self._score
-        if indicator == "temp":
-            return self._temp
-        if indicator == "humid":
-            return self._humid
-        if indicator == "co2":
-            return self._co2
-        if indicator == "voc":
-            return self._voc
-        if indicator == "dust":
-            return self._dust
+        return(self._data[indicator])
 
     def refresh(self) -> object:
         """
@@ -71,11 +55,11 @@ class AwairDev:
         :return: The object itself.
         """
         current_data: list = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
-        self._score = current_data[0]['score']
-        self._temp = current_data[0]['sensors'][0]['value']
-        self._humid = current_data[0]['sensors'][1]['value']
-        self._co2 = current_data[0]['sensors'][2]['value']
-        self._voc = current_data[0]['sensors'][3]['value']
-        self._dust = current_data[0]['sensors'][4]['value']
+        self._data['score'] = current_data[0]['score']
+        self._data['temp'] = current_data[0]['sensors'][0]['value']
+        self._data['humid'] = current_data[0]['sensors'][1]['value']
+        self._data['co2'] = current_data[0]['sensors'][2]['value']
+        self._data['voc'] = current_data[0]['sensors'][3]['value']
+        self._data['dust'] = current_data[0]['sensors'][4]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update
 
