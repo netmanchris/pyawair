@@ -34,7 +34,15 @@ class AwairDev:
 
         self.refresh()
 
-    def get_state(self, indicator):
+    def get_state(self, indicator: str) -> float:
+        """
+        Function to get the state of a specific indicator.
+
+        The values are cached, in accordance with the cache time that is set for the object.
+
+        :param indicator: A string containing one of the values from: score, temp, humid, co2, voc or dust.
+        :return: The value of the specific indicator.
+        """
         now = datetime.datetime.now()
         delta_min = (now - self._last_update).total_seconds() / 60
         if delta_min > self._cache_time:
@@ -53,6 +61,15 @@ class AwairDev:
             return self._dust
 
     def refresh(self) -> object:
+        """
+        Function to refresh the state of the objects.
+
+        The values are cached internally for the period equal to the cache
+        time value. The refresh function refreshed these values, independent of the time that has past since the last
+        refresh.
+
+        :return: The object itself.
+        """
         current_data: list = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
         self._score = current_data[0]['score']
         self._temp = current_data[0]['sensors'][0]['value']
