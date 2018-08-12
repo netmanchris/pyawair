@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across test_machine.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.6',
+    version='0.0.7',
 
     description='Python binding for Awair Air Quality Device API',
     long_description=long_description,
