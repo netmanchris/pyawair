@@ -54,6 +54,14 @@ class AwairDev:
             self.refresh()
         return(self._data[indicator])
 
+    def name(self) -> str:
+        """
+        Function to get the name of the device.
+
+        :return: The name of the device.
+        """
+        return(self._device_name)
+
     def refresh(self):
         """
         Function to refresh the state of the objects.
