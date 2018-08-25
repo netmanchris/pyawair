@@ -6,17 +6,17 @@ This module is used for testing the functions within the pyhpeimc.plat.alarms mo
 from unittest import TestCase
 from secret import *
 from pyawair.data import *
+from tests.config import get_test_token, get_test_device_name
 
-#dev1="Bedroom Awair"   #Modify this variable to test against your own devices
-dev1="Bedroom Glow"
-
+dev1 = get_test_device_name()
+auth = pyawair.auth.AwairAuth(get_test_token())
 
 # TODO Remarked out failing tests
 
 
 class TestGetCurrentAirData(TestCase):
     """
-    Test Case for pyawair.devices get_current_air_data function
+    Test Case for pyawair.data get_current_air_data function
     """
 
     def test_get_current_air(self):
