@@ -1,7 +1,6 @@
 import requests
 import ast
 import json
-from pyawair.auth import *
 
 def check_response(response):
     if response.status_code != 200:

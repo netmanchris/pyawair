@@ -123,6 +123,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
         f_url = base_url + dev_url + data_url
         #print(f_url)
         response = requests.get(f_url, headers=auth.headers)
+        pyawair.conn.check_response(response)
         return json.loads(response.text)
     else:
         devices = get_all_devices(auth)
@@ -134,6 +135,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
                 f_url = base_url + dev_url + data_url
                 #print(f_url)
                 response = requests.get(f_url, headers=auth.headers)
+                pyawair.conn.check_response(response)
                 return json.loads(response.text)
 
 
@@ -154,6 +156,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
         f_url = base_url + dev_url + data_url
         #print(f_url)
         response = requests.get(f_url, headers=auth.headers)
+        pyawair.conn.check_response(response)
         return json.loads(response.text)
     else:
         devices = get_all_devices(auth)
@@ -165,6 +168,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
                 f_url = base_url + dev_url + data_url
                 #print(f_url)
                 response = requests.get(f_url, headers=auth.headers)
+                pyawair.conn.check_response(response)
                 return json.loads(response.text)
 
 
@@ -196,6 +200,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
                 #print(f_url)
                 data = json.dumps({'pref': new_mode})
                 response = requests.put(f_url, data=data, headers=auth.headers)
+                pyawair.conn.check_response(response)
                 return json.loads(response.text)
         except:
             print("mode setting not valid")
@@ -213,6 +218,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
                     #print(f_url)
                     data = json.dumps({'pref': new_mode})
                     response = requests.put(f_url, data=data, headers=auth.headers)
+                    pyawair.conn.check_response(response)
                     return json.loads(response.text)
 
 
@@ -243,6 +249,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
             #print(f_url)
             data = json.dumps({'timezone': timezone})
             response = requests.post(f_url, data=data, headers=auth.headers)
+            pyawair.conn.check_response(response)
             return json.loads(response.text)
         except:
             print("mode setting not valid")
@@ -257,6 +264,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
                 #print(f_url)
                 data = json.dumps({'timezone': timezone})
                 response = requests.post(f_url, data=data, headers=auth.headers)
+                pyawair.conn.check_response(response)
                 return json.loads(response.text)
 
 

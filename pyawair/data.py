@@ -1,6 +1,6 @@
 from pyawair.devices import *
 import pyawair.conn
-from pyawair.objects import *
+import pyawair.objects
 
 
 def get_current_air_data(auth, device_name=None, device_type=None, device_id=None):
@@ -14,7 +14,7 @@ def get_current_air_data(auth, device_name=None, device_type=None, device_id=Non
     :return: Object of Dict type which contains current air data
     """
     if device_type is None or device_id is None:
-        awair_device = AwairDev(device_name, auth)
+        awair_device = pyawair.objects.AwairDev(device_name, auth)
         device_type = awair_device.type()
         device_id = awair_device.id()
 
@@ -36,7 +36,7 @@ def get_5_min_average(auth, device_name=None, device_type=None, device_id=None):
     :return: Object of Dict type which contains current air data
     """
     if device_type is None or device_id is None:
-        awair_device = AwairDev(device_name, auth)
+        awair_device = pyawair.objects.AwairDev(device_name, auth)
         device_type = awair_device.type()
         device_id = awair_device.id()
 
@@ -58,7 +58,7 @@ def get_15_min_average(auth, device_name=None, device_type=None, device_id=None)
     :return: Object of Dict type which contains current air data
     """
     if device_type is None or device_id is None:
-        awair_device = AwairDev(device_name, auth)
+        awair_device = pyawair.objects.AwairDev(device_name, auth)
         device_type = awair_device.type()
         device_id = awair_device.id()
 
@@ -80,7 +80,7 @@ def get_raw_data(auth, device_name=None, device_type=None, device_id=None):
         :return: Object of Dict type which contains current air data
         """
     if device_type is None or device_id is None:
-        awair_device = AwairDev(device_name, auth)
+        awair_device = pyawair.objects.AwairDev(device_name, auth)
         device_type = awair_device.type()
         device_id = awair_device.id()
 

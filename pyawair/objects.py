@@ -4,8 +4,7 @@
 # author: @netmanchris
 # -*- coding: utf-8 -*-
 
-from pyawair.data import get_current_air_data, get_15_min_average, get_5_min_average
-from pyawair.data import get_all_devices
+import pyawair.data
 from pyawair.auth import AwairAuth
 import datetime
 
@@ -33,7 +32,7 @@ class AwairDev:
         self._device_name = device_name
 
         # Get device type and ID from name
-        devices = get_all_devices(self._auth)
+        devices = pyawair.data.get_all_devices(self._auth)
         self._type = next((item for item in devices if item["name"] == device_name),
                           False)['deviceType']  # get the device type
         self._id = next((item for item in devices if item["name"] == device_name),
@@ -93,11 +92,11 @@ class AwairDev:
         refresh.
         """
         if self._aggregate_type == 'current':
-            data: list = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
+            data: list = pyawair.data.get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
         elif self._aggregate_type == '5-minute':
-            data: list = get_5_min_average(self._auth, device_id=self._id, device_type=self._type)
+            data: list = pyawair.data.get_5_min_average(self._auth, device_id=self._id, device_type=self._type)
         elif self._aggregate_type == '15-minute':
-            data: list = get_15_min_average(self._auth, device_id=self._id, device_type=self._type)
+            data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id, device_type=self._type)
 
         self._data['score'] = data[0]['score']
         self._data['temp'] = data[0]['sensors'][0]['value']
