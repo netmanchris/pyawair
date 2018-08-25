@@ -62,6 +62,22 @@ class AwairDev:
         """
         return(self._device_name)
 
+    def type(self) -> str:
+        """
+        Function to get the name of the device.
+
+        :return: The type of the device.
+        """
+        return(self._type)
+
+    def id(self) -> str:
+        """
+        Function to get the name of the device.
+
+        :return: The name of the device.
+        """
+        return(self._id)
+
     def refresh(self):
         """
         Function to refresh the state of the objects.
