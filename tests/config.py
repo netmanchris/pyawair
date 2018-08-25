@@ -8,5 +8,5 @@ def get_test_token():
 
 def get_test_device_name():
     if TEST_DEVICE_NAME is None:
-        raise ValueError("Invalid token")
+        raise ValueError("Invalid name")
     return TEST_DEVICE_NAME
