@@ -1,5 +1,6 @@
 import json
 import requests
+import pyawair.conn
 
 
 def get_user_data(auth):
@@ -21,6 +22,7 @@ def get_all_devices(auth):
     """
     response = requests.get("http://developer-apis.awair.is/v1/users/self/devices",
                             headers=auth.headers)
+    pyawair.conn.check_response(response)
     return json.loads(response.text)['devices']
 
 
