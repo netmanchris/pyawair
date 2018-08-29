@@ -6,10 +6,11 @@ This module is used for testing the functions within the pyhpeimc.plat.alarms mo
 from unittest import TestCase
 from secret import *
 from pyawair.devices import *
+import pyawair.auth
+from tests.config import get_test_token, get_test_device_name
 
-dev1="Bedroom Awair"   #Modify this variable to test against your own devices
-
-
+dev1 = get_test_device_name()
+auth = pyawair.auth.AwairAuth(get_test_token())
 
 # TODO Remarked out failing tests
 

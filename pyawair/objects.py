@@ -4,13 +4,12 @@
 # author: @netmanchris
 # -*- coding: utf-8 -*-
 
-from pyawair.data import get_current_air_data
-from pyawair.data import get_all_devices
+import pyawair.data
 from pyawair.auth import AwairAuth
 import datetime
 
 class AwairDev:
-    def __init__(self, device_name: str, auth: AwairAuth, cache_time: float = 15):
+    def __init__(self, device_name: str, auth: AwairAuth, cache_time: float = 15, aggregate_type = '15-minute'):
         """
         Initialise AwairDev object.
 
@@ -19,15 +18,21 @@ class AwairDev:
         :param cache_time: The time in minutes that the state values should be cached. When this time has expired, new values
                            will be requested. Keep in mind that the API has daily limits so setting this too low might
                            cause problems.
+        :param aggregate_type: Type can be 'current', '5-minute' or '15-minute' referring to the aggregation. Keep in mind that
+                               not all tiers have access to all of them.
         """
         self._auth = auth
         self._cache_time = cache_time
+        if aggregate_type in ['current', '5-minute', '15-minute']:
+            self._aggregate_type = aggregate_type
+        else:
+            raise ValueError("The argument aggregate_type cannot have this value.")
         self._last_update = datetime.datetime.now()  # records the last update
 
         self._device_name = device_name
 
         # Get device type and ID from name
-        devices = get_all_devices(self._auth)
+        devices = pyawair.data.get_all_devices(self._auth)
         self._type = next((item for item in devices if item["name"] == device_name),
                           False)['deviceType']  # get the device type
         self._id = next((item for item in devices if item["name"] == device_name),
@@ -54,6 +59,30 @@ class AwairDev:
             self.refresh()
         return(self._data[indicator])
 
+    def name(self) -> str:
+        """
+        Function to get the name of the device.
+
+        :return: The name of the device.
+        """
+        return(self._device_name)
+
+    def type(self) -> str:
+        """
+        Function to get the name of the device.
+
+        :return: The type of the device.
+        """
+        return(self._type)
+
+    def id(self) -> str:
+        """
+        Function to get the name of the device.
+
+        :return: The name of the device.
+        """
+        return(self._id)
+
     def refresh(self):
         """
         Function to refresh the state of the objects.
@@ -62,12 +91,18 @@ class AwairDev:
         time value. The refresh function refreshed these values, independent of the time that has past since the last
         refresh.
         """
-        current_data: list = get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
-        self._data['score'] = current_data[0]['score']
-        self._data['temp'] = current_data[0]['sensors'][0]['value']
-        self._data['humid'] = current_data[0]['sensors'][1]['value']
-        self._data['co2'] = current_data[0]['sensors'][2]['value']
-        self._data['voc'] = current_data[0]['sensors'][3]['value']
-        self._data['dust'] = current_data[0]['sensors'][4]['value']
+        if self._aggregate_type == 'current':
+            data: list = pyawair.data.get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
+        elif self._aggregate_type == '5-minute':
+            data: list = pyawair.data.get_5_min_average(self._auth, device_id=self._id, device_type=self._type)
+        elif self._aggregate_type == '15-minute':
+            data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id, device_type=self._type)
+
+        self._data['score'] = data[0]['score']
+        self._data['temp'] = data[0]['sensors'][0]['value']
+        self._data['humid'] = data[0]['sensors'][1]['value']
+        self._data['co2'] = data[0]['sensors'][2]['value']
+        self._data['voc'] = data[0]['sensors'][3]['value']
+        self._data['dust'] = data[0]['sensors'][4]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update
 
