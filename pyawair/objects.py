@@ -98,11 +98,11 @@ class AwairDev:
         elif self._aggregate_type == '15-minute':
             data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id, device_type=self._type)
 
-        self._data['score'] = data[0]['score']
-        self._data['temp'] = data[0]['sensors'][0]['value']
-        self._data['humid'] = data[0]['sensors'][1]['value']
-        self._data['co2'] = data[0]['sensors'][2]['value']
-        self._data['voc'] = data[0]['sensors'][3]['value']
-        self._data['dust'] = data[0]['sensors'][4]['value']
+        self._data['score'] = data[-1]['score']
+        self._data['temp'] = data[-1]['sensors'][0]['value']
+        self._data['humid'] = data[-1]['sensors'][1]['value']
+        self._data['co2'] = data[-1]['sensors'][2]['value']
+        self._data['voc'] = data[-1]['sensors'][3]['value']
+        self._data['dust'] = data[-1]['sensors'][4]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update
 
