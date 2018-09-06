@@ -33,6 +33,10 @@ class AwairDev:
 
         # Get device type and ID from name
         devices = pyawair.data.get_all_devices(self._auth)
+        device_names = [d['name'] for d in devices]
+        if not device_name in device_names:
+            raise ValueError("This device name ({}) does not exist in your Awair account. Be aware that the device name is capital sensitive.".format(device_name))
+
         self._type = next((item for item in devices if item["name"] == device_name),
                           False)['deviceType']  # get the device type
         self._id = next((item for item in devices if item["name"] == device_name),
