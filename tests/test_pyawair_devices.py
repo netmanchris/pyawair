@@ -10,7 +10,7 @@ import pyawair.auth
 from tests.config import get_test_token, get_test_device_name
 
 dev1 = get_test_device_name()
-auth = pyawair.auth.AwairAuth(get_test_token())
+#auth = pyawair.auth.AwairAuth(get_test_token())
 
 # TODO Remarked out failing tests
 
