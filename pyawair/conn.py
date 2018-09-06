@@ -8,9 +8,9 @@ def check_response(response):
                                                                                                ast.literal_eval(response.text)['message']))
     return
 
-def get_data(auth, id, type, base_url, data_url):
+def get_data(auth, id, type, base_url, data_url, args):
     dev_url = type + "/" + str(id)
-    f_url = base_url + dev_url + data_url
+    f_url = base_url + dev_url + data_url + args
     response = requests.get(f_url, headers=auth.headers)
     check_response(response)
     return json.loads(response.text)['data']
