@@ -21,7 +21,6 @@ def get_current_air_data(auth, device_name=None, device_type=None, device_id=Non
     base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
     data_url = "/air-data/latest"
     data = pyawair.conn.get_data(auth, device_id, device_type, base_url, data_url)
-
     return data
 
 
