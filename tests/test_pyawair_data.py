@@ -4,7 +4,6 @@ This module is used for testing the functions within the pyawair.data module.
 """
 
 from unittest import TestCase
-from secret import *
 from pyawair.data import *
 
 dev1 = 'Bedroom'
