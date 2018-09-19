@@ -4,7 +4,6 @@ This module is used for testing the functions within the pyawair.devices module.
 """
 
 from unittest import TestCase
-from secret import *
 from pyawair.devices import *
 import pyawair.auth
 
