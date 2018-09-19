@@ -4,4 +4,7 @@ python:
     - "3.6"
 
 script:
-  - nosetests --with-coverage --cover-package=pyawair
+  - nosetests
+
+after_success:
+    - coveralls
