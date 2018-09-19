@@ -1,4 +1,7 @@
+
 # Python Wrapper for Awair Air Quality Sensor
+
+[![Build Status](https://travis-ci.com/netmanchris/pyawair.svg?branch=master)](https://travis-ci.com/netmanchris/pyawair)
 
 This project is a alpha wrapper for the Awair Air Quality Sensor API.
 
