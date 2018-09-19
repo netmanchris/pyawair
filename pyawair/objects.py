@@ -1,5 +1,4 @@
-
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # coding=utf-8
 # author: @netmanchris
 # -*- coding: utf-8 -*-
@@ -8,8 +7,10 @@ import pyawair.data
 from pyawair.auth import AwairAuth
 import datetime
 
+
 class AwairDev:
-    def __init__(self, device_name: str, auth: AwairAuth, cache_time: float = 15, aggregate_type = '15-minute'):
+    def __init__(self, device_name: str, auth: AwairAuth, cache_time: float = 15,
+                 aggregate_type='15-minute'):
         """
         Initialise AwairDev object.
 
@@ -35,7 +36,9 @@ class AwairDev:
         devices = pyawair.data.get_all_devices(self._auth)
         device_names = [d['name'] for d in devices]
         if not device_name in device_names:
-            raise ValueError("This device name ({}) does not exist in your Awair account. Be aware that the device name is capital sensitive.".format(device_name))
+            raise ValueError(
+                "This device name ({}) does not exist in your Awair account. Be aware that the device name is capital sensitive.".format(
+                    device_name))
 
         self._type = next((item for item in devices if item["name"] == device_name),
                           False)['deviceType']  # get the device type
@@ -61,7 +64,7 @@ class AwairDev:
         delta_min = (now - self._last_update).total_seconds() / 60
         if delta_min > self._cache_time:
             self.refresh()
-        return(self._data[indicator])
+        return self._data[indicator]
 
     def name(self) -> str:
         """
@@ -69,7 +72,7 @@ class AwairDev:
 
         :return: The name of the device.
         """
-        return(self._device_name)
+        return self._device_name
 
     def type(self) -> str:
         """
@@ -77,7 +80,7 @@ class AwairDev:
 
         :return: The type of the device.
         """
-        return(self._type)
+        return self._type
 
     def id(self) -> str:
         """
@@ -85,7 +88,7 @@ class AwairDev:
 
         :return: The name of the device.
         """
-        return(self._id)
+        return self._id
 
     def refresh(self):
         """
@@ -96,11 +99,14 @@ class AwairDev:
         refresh.
         """
         if self._aggregate_type == 'current':
-            data: list = pyawair.data.get_current_air_data(self._auth, device_id=self._id, device_type=self._type)
+            data: list = pyawair.data.get_current_air_data(self._auth, device_id=self._id,
+                                                           device_type=self._type)
         elif self._aggregate_type == '5-minute':
-            data: list = pyawair.data.get_5_min_average(self._auth, device_id=self._id, device_type=self._type)
+            data: list = pyawair.data.get_5_min_average(self._auth, device_id=self._id,
+                                                        device_type=self._type)
         elif self._aggregate_type == '15-minute':
-            data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id, device_type=self._type)
+            data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id,
+                                                         device_type=self._type)
 
         self._data['score'] = data[-1]['score']
         self._data['temp'] = data[-1]['sensors'][0]['value']
@@ -109,4 +115,3 @@ class AwairDev:
         self._data['voc'] = data[-1]['sensors'][3]['value']
         self._data['dust'] = data[-1]['sensors'][4]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update
-
