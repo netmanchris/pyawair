@@ -8,7 +8,16 @@ from pyawair.devices import *
 import pyawair.auth
 
 
-dev1 = 'Bedroom'
+
+dev1 = {'deviceId': 0,
+ 'deviceType': 'awair',
+ 'latitude': 123.4567,
+ 'locationName': 'My Home',
+ 'longitude': 123.4567,
+ 'name': 'Bedroom',
+ 'preference': 'GENERAL',
+ 'spaceType': 'HOME',
+ 'timezone': 'US/Pacific'}
 
 hobbiest = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiRFVNTVktSE9CQllJU1QifQ.hzjhIpGljqCZ8vCrOr89POy_ENDPYQXsnzGslP01krI'
 small_dev = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiRFVNTVktU01BTExfREVWRUxPUEVSIn0.amOu5uy-0UeBDRLd6uhqsbkUEyx13-4QdBrV1S3z2W8'
@@ -60,11 +69,12 @@ class TestGetDevDetails(TestCase):
     device name "Bedroom_Awair"
     """
 
-    def test_get_dev_details_pos(self):
+
+    def test_get_dev_details_name_pos(self):
         """
         Positive Test Case
         """
-        single_device = get_dev_details(auth, device_name=dev1)
+        single_device = get_dev_details(auth, device_name=dev1['name'])
         self.assertIs(type(single_device['deviceId']), int)
         self.assertIs(type(single_device['deviceType']), str)
         self.assertIs(type(single_device['latitude']), float)
@@ -72,7 +82,7 @@ class TestGetDevDetails(TestCase):
         self.assertIs(type(single_device['longitude']), float)
         self.assertIs(type(single_device['name']), str)
 
-    def test_get_dev_details_neg(self):
+    def test_get_dev_details_name_neg(self):
         """
         Negative Test case
         :return:
@@ -86,17 +96,25 @@ class TestGetDevLEDMode(TestCase):
     Test Case for pyawair.devices get_dev_led_mode function for a single
     device name "Bedroom_Awair"
     """
-
-    def test_get_dev_led_mode_pos(self):
+    def test_get_dev_led_mode_id_pos(self):
         """
         Positive Test case
         """
-        led_mode = get_dev_led_mode(auth, device_name=dev1)
+        led_mode = get_dev_led_mode(auth,device_type=dev1['deviceType'], device_id=dev1['deviceId'])
         modes=["sleep", "on", "dim"]
         self.assertIn(led_mode['mode'].lower(), modes)
 
 
-    def test_get_dev_led_mode_neg(self):
+    def test_get_dev_led_mode_name_pos(self):
+        """
+        Positive Test case
+        """
+        led_mode = get_dev_led_mode(auth, device_name=dev1['name'])
+        modes=["sleep", "on", "dim"]
+        self.assertIn(led_mode['mode'].lower(), modes)
+
+
+    def test_get_dev_led_mode__name_neg(self):
         """
         Negative Test case
         :return:
@@ -111,12 +129,23 @@ class TestGetDevTimeZone(TestCase):
     device name "Bedroom_Awair"
     """
 
-    def test_get_dev_timezone_pos(self):
+    def test_get_dev_timezone_id_pos(self):
         """
         Positive Test case
         """
-        timezone = get_dev_timezone(auth, device_name=dev1)
+        timezone = get_dev_timezone(auth,device_type=dev1['deviceType'], device_id=dev1['deviceId'])
+        expected_timezone = {'timezone': 'US/Pacific'}
         self.assertIs(type(timezone['timezone']), str)
+        self.assertEqual(timezone, expected_timezone)
+
+    def test_get_dev_timezone_name_pos(self):
+        """
+        Positive Test case
+        """
+        timezone = get_dev_timezone(auth, device_name=dev1['name'])
+        expected_timezone = {'timezone': 'US/Pacific'}
+        self.assertIs(type(timezone['timezone']), str)
+        self.assertEqual(timezone, expected_timezone)
 
     def test_get_dev_timezone_neg(self):
         """
@@ -132,17 +161,25 @@ class TestGetDevDisplayMode(TestCase):
     Test Case for pyawair.devices get_dev_display_mode function for a single
     device name "Bedroom_Awair"
     """
-
-    def test_get_dev_display_mode_pos(self):
+    def test_get_dev_display_mode_id_pos(self):
         """
         Positive Test case
         """
-        display_mode = get_dev_display_mode(auth, device_name=dev1)
+        display_mode = get_dev_display_mode(auth,device_type=dev1['deviceType'], device_id=dev1['deviceId'])
+        modes = ["default", "score", "clock", "off", "nightlight", "temp", "humid",
+                 "co2", "voc", "pm25", "temp_humid_celsius", "temp_humid_fahrenheit"]
+        self.assertIn(display_mode['mode'].lower(), modes)
+
+    def test_get_dev_display_mode_name_pos(self):
+        """
+        Positive Test case
+        """
+        display_mode = get_dev_display_mode(auth, device_name=dev1['name'])
         modes=["default", "score", "clock" ,"off" ,"nightlight", "temp", "humid",
                "co2", "voc", "pm25", "temp_humid_celsius", "temp_humid_fahrenheit"]
         self.assertIn(display_mode['mode'].lower(), modes)
 
-    def test_get_dev_display_mode_neg(self):
+    def test_get_dev_display_mode_name_neg(self):
         """
         Negative Test case
         :return:
@@ -157,11 +194,15 @@ class TestGetDevPowerStatus(TestCase):
     device name "Bedroom_Awair"
     """
 
+    def test_get_dev_power_status_id_post(self):
+        power_status = get_dev_power_status(auth,device_type=dev1['deviceType'], device_id=dev1['deviceId'])
+        # self.assertIs(type(power_status['message']), str)
+
     def test_get_dev_power_status_pos(self):
         """
         Positive Test case
         """
-        power_status = get_dev_power_status(auth, device_name=dev1)
+        power_status = get_dev_power_status(auth, device_name=dev1['name'])
         #self.assertIs(type(power_status['message']), str)
 
     def test_get_dev_power_status_neg(self):
@@ -181,19 +222,38 @@ class TestSetDevicePreference(TestCase):
     device name "Bedroom_Awair"
     ['general', 'productivity', 'sleep', 'allergy', 'baby']
     """
+    def test_set_dev_preference_pos_id_post(self):
+        mode = 'general'
+        preference = set_device_preference(auth, mode, device_type=dev1['deviceType'],
+                                           device_id=dev1['deviceId'])
+        # self.assertIs(type(preference['message']), str)
+        # self.assertEquals(preference['message'],"success")
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
+        self.assertEquals(dev_details['preference'].lower(), mode)
+
+    def test_set_dev_preference_id_bad_mode_neg(self):
+        """
+        Negative Test case
+        :return:
+        """
+        mode = 'banana'
+        preference = set_device_preference(auth, mode, device_type=dev1['deviceType'],
+                                           device_id=dev1['deviceId'])
+        self.assertEqual(preference, 'mode setting not valid')
+
 
     def test_set_dev_preference_pos_general(self):
         """
         Positive Test case
         """
         mode = 'general'
-        #preference = set_device_preference(auth, mode, device_name=dev1)
+        preference = set_device_preference(auth, mode, device_name=dev1['name'])
         #self.assertIs(type(preference['message']), str)
         #self.assertEquals(preference['message'],"success")
-        dev_details = get_dev_details(auth, device_name=dev1)
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
         self.assertEquals(dev_details['preference'].lower(), mode )
 
-    def test_set_dev_preference_neg(self):
+    def test_set_dev_preference_no_device_neg(self):
         """
         Negative Test case
         :return:
@@ -202,16 +262,25 @@ class TestSetDevicePreference(TestCase):
         preference = set_device_preference(auth, mode, device_name="Doesn't Exist")
         self.assertEqual(preference, 'Device not found')
 
+    def test_set_dev_preference_bad_mode_neg(self):
+        """
+        Negative Test case
+        :return:
+        """
+        mode = 'banana'
+        preference = set_device_preference(auth, mode, device_name=dev1['name'])
+        self.assertEqual(preference, 'mode setting not valid')
+
     '''
     def test_set_dev_preference_pos_sleep(self):
         """
         Positive Test case
         """
         mode = 'sleep'
-        preference = set_device_preference(auth, mode, device_name=dev1)
+        preference = set_device_preference(auth, mode, device_name=dev1['name'])
         self.assertIs(type(preference['message']), str)
         self.assertEquals(preference['message'], "success")
-        dev_details = get_dev_details(auth, device_name=dev1)
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
         self.assertEquals(dev_details['preference'].lower(), mode)
 
 
@@ -220,10 +289,10 @@ class TestSetDevicePreference(TestCase):
         Positive Test case
         """
         mode = 'productivity'
-        preference = set_device_preference(auth, mode, device_name=dev1)
+        preference = set_device_preference(auth, mode, device_name=dev1['name'])
         self.assertIs(type(preference['message']), str)
         self.assertEquals(preference['message'], "success")
-        dev_details = get_dev_details(auth, device_name=dev1)
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
         self.assertEquals(dev_details['preference'].lower(), mode)
 
 
@@ -232,10 +301,10 @@ class TestSetDevicePreference(TestCase):
         Positive Test case
         """
         mode = 'baby'
-        preference = set_device_preference(auth, mode, device_name=dev1)
+        preference = set_device_preference(auth, mode, device_name=dev1['name'])
         self.assertIs(type(preference['message']), str)
         self.assertEquals(preference['message'], "success")
-        dev_details = get_dev_details(auth, device_name=dev1)
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
         self.assertEquals(dev_details['preference'].lower(), mode)
 
 
@@ -244,10 +313,10 @@ class TestSetDevicePreference(TestCase):
         Positive Test case
         """
         mode = 'allergy'
-        preference = set_device_preference(auth, mode, device_name=dev1)
+        preference = set_device_preference(auth, mode, device_name=dev1['name'])
         self.assertIs(type(preference['message']), str)
         self.assertEquals(preference['message'], "success")
-        dev_details = get_dev_details(auth, device_name=dev1)
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
         self.assertEquals(dev_details['preference'].lower(), mode)
 '''
 
@@ -258,15 +327,24 @@ class TestSetDeviceTimezone(TestCase):
     ['general', 'productivity', 'sleep', 'allergy', 'baby']
     """
 
+    def test_set_dev_timezone_pos_id_post(self):
+        new_timezone = 'us/pacific'
+        timezone = set_device_timezone(auth, new_timezone,device_type=dev1['deviceType'],
+                                           device_id=dev1['deviceId'])
+        self.assertIs(type(timezone['message']), str)
+        self.assertEquals(timezone['message'], "success")
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
+        self.assertEquals(dev_details['timezone'].lower(), new_timezone.lower())
+
     def test_set_dev_timezone_pos(self):
         """
         Positive Test case
         """
         new_timezone = 'us/pacific'
-        timezone = set_device_timezone(auth, new_timezone, device_name=dev1)
+        timezone = set_device_timezone(auth, new_timezone, device_name=dev1['name'])
         self.assertIs(type(timezone['message']), str)
         self.assertEquals(timezone['message'],"success")
-        dev_details = get_dev_details(auth, device_name=dev1)
+        dev_details = get_dev_details(auth, device_name=dev1['name'])
         self.assertEquals(dev_details['timezone'].lower(), new_timezone.lower() )
 
     def test_set_dev_timezone_neg(self):

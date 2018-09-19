@@ -208,6 +208,8 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
                 response = requests.put(f_url, data=data, headers=auth.headers)
                 pyawair.conn.check_response(response)
                 return json.loads(response.text)
+            else:
+                return ("mode setting not valid")
         except:
             print("mode setting not valid")
     else:
@@ -225,6 +227,8 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
                     response = requests.put(f_url, data=data, headers=auth.headers)
                     pyawair.conn.check_response(response)
                     return json.loads(response.text)
+                else:
+                    return ("mode setting not valid")
             else:
                 return "Device not found"
 
