@@ -113,5 +113,6 @@ class AwairDev:
         self._data['humid'] = data[-1]['sensors'][1]['value']
         self._data['co2'] = data[-1]['sensors'][2]['value']
         self._data['voc'] = data[-1]['sensors'][3]['value']
-        self._data['dust'] = data[-1]['sensors'][4]['value']
+        if self._type != 'awair-glow':   #Glow doesn't have dust sensor so failing
+            self._data['dust'] = data[-1]['sensors'][4]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update

@@ -5,4 +5,4 @@
 
 
 def version():
-    return '0.0.10'
+    return '0.0.11'
