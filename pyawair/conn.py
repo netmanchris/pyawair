@@ -3,6 +3,7 @@ import ast
 import json
 
 
+
 def check_response(response):
     if response.status_code != 200:
         raise ConnectionError("No connection with the API. Status code {}. Message: '{}'.".format(

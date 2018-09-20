@@ -4,6 +4,7 @@ This module is used for testing the functions within the pyawair.objects module.
 """
 
 from unittest import TestCase
+from unittest import mock
 from pyawair.objects import *
 
 dev1 = {'deviceId': 0,
@@ -50,6 +51,8 @@ class TestGetCurrentAirData(TestCase):
         score = new_device.get_state('voc')
         self.assertEqual(score, 100.0)
         score = new_device.get_state('dust')
+        self.assertEqual(score, 100.0)
+        new_device._cache_time = 0
         self.assertEqual(score, 100.0)
 
     def test_get_name_method(self):
