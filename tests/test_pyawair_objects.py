@@ -67,6 +67,42 @@ class TestGetCurrentAirData(TestCase):
         dev_id = new_device.id()
         self.assertEqual(dev_id, dev1['deviceId'])
 
+    def test_aggregate_type_default_pos(self):
+        new_device = AwairDev(dev1['name'], auth)
+        self.assertEqual(new_device._aggregate_type, '15-minute')
+
+    def test_aggregate_type_current_pos(self):
+        new_device = AwairDev(dev1['name'], auth, aggregate_type='current')
+        self.assertEqual(new_device._aggregate_type, 'current')
+
+    def test_aggregate_type_5min_pos(self):
+        new_device = AwairDev(dev1['name'], auth, aggregate_type='5-minute')
+        self.assertEqual(new_device._aggregate_type, '5-minute')
+
+    def test_aggregate_type_invalid(self):
+        with self.assertRaises(ValueError):
+            new_device = AwairDev(dev1['name'], auth, aggregate_type='10-minute')
+
+    def test_device_name_invalid(self):
+        with self.assertRaises(ValueError):
+            new_device = AwairDev('banana', auth)
+
+    def test_refresh_type_default_pos(self):
+        new_device = AwairDev(dev1['name'], auth)
+        new_device.refresh()
+        self.assertEqual(new_device._data['score'], 100.0)
+
+    def test_refresh_type_current_pos(self):
+        new_device = AwairDev(dev1['name'], auth, aggregate_type='current')
+        new_device.refresh()
+        self.assertEqual(new_device._data['score'], 100.0)
+
+    def test_refresh_type_5min_pos(self):
+        new_device = AwairDev(dev1['name'], auth, aggregate_type='5-minute')
+        new_device.refresh()
+        self.assertEqual(new_device._data['score'], 100.0)
+
+
 
 
 
