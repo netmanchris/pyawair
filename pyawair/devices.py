@@ -202,16 +202,13 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
         f_url = base_url + dev_url + data_url
         modes = ['general', 'productivity', 'sleep', 'allergy', 'baby']
         new_mode = new_mode
-        try:
-            if new_mode in modes:
-                data = json.dumps({'pref': new_mode})
-                response = requests.put(f_url, data=data, headers=auth.headers)
-                pyawair.conn.check_response(response)
-                return json.loads(response.text)
-            else:
-                return ("mode setting not valid")
-        except:
-            print("mode setting not valid")
+        if new_mode in modes:
+            data = json.dumps({'pref': new_mode})
+            response = requests.put(f_url, data=data, headers=auth.headers)
+            pyawair.conn.check_response(response)
+            return json.loads(response.text)
+        else:
+            return ("mode setting not valid")
     else:
         devices = get_all_devices(auth)
         for dev in devices:
@@ -257,13 +254,10 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
         dev_url = device_type + "/" + str(device_id)
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
-        try:
-            data = json.dumps({'timezone': timezone})
-            response = requests.post(f_url, data=data, headers=auth.headers)
-            pyawair.conn.check_response(response)
-            return json.loads(response.text)
-        except:
-            print("mode setting not valid")
+        data = json.dumps({'timezone': timezone})
+        response = requests.post(f_url, data=data, headers=auth.headers)
+        pyawair.conn.check_response(response)
+        return json.loads(response.text)
     else:
         devices = get_all_devices(auth)
         for dev in devices:
@@ -304,14 +298,13 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
         dev_url = device_type + "/" + str(device_id)
         data_url = "/led"
         f_url = base_url + dev_url + data_url
-        try:
-            if led_mode in modes:
-                data = json.dumps({'mode': led_mode})
-                response = requests.post(f_url, data=data, headers=auth.headers)
-                pyawair.conn.check_response(response)
-                return json.loads(response.text)
-        except:
-            print("mode setting not valid")
+        if led_mode in modes:
+            data = json.dumps({'mode': led_mode})
+            response = requests.post(f_url, data=data, headers=auth.headers)
+            pyawair.conn.check_response(response)
+            return json.loads(response.text)
+        else:
+            return "mode setting not valid"
     else:
         devices = get_all_devices(auth)
         for dev in devices:
@@ -320,13 +313,14 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/led"
                 f_url = base_url + dev_url + data_url
-                try:
-                    if led_mode in modes:
+                if led_mode in modes:
                         data = json.dumps({'mode': led_mode})
                         response = requests.post(f_url, data=data, headers=auth.headers)
                         pyawair.conn.check_response(response)
                         return json.loads(response.text)
-                except:
-                    print("INVALID LED MODE SPECIFIED")
+                else:
+                    return "mode setting not valid"
+            else:
+                return "Device not found"
 
 

@@ -355,3 +355,44 @@ class TestSetDeviceTimezone(TestCase):
         new_timezone = "America/Montreal"
         timezone = set_device_timezone(auth, new_timezone, device_name="Doesn't Exist")
         self.assertEqual(timezone, 'Device not found')
+
+
+class TestSetDeviceLED(TestCase):
+    """
+    Test Case for pyawair.devices set_dev_timezone function for a single
+    device name "Bedroom_Awair"
+    ['general', 'productivity', 'sleep', 'allergy', 'baby']
+    """
+
+    def test_set_device_led_id_pos(self):
+        led_mode = 'dim'
+        new_mode = set_device_led(auth, led_mode,device_type=dev1['deviceType'],
+                                           device_id=dev1['deviceId'])
+
+        check_mode = get_dev_led_mode(auth, device_type=dev1['deviceType'],
+                                           device_id=dev1['deviceId'])
+        self.assertEqual(check_mode, {'mode': 'on'})
+
+    def test_set_device_led_mode_id_neg(self):
+        led_mode = 'banana'
+        new_mode = set_device_led(auth, led_mode, device_type=dev1['deviceType'],
+                                           device_id=dev1['deviceId'])
+        self.assertEqual(new_mode, 'mode setting not valid')
+
+    def test_set_device_led_name_pos(self):
+        led_mode = 'dim'
+        new_mode = set_device_led(auth, led_mode,device_name=dev1['name'])
+
+        check_mode = get_dev_led_mode(auth, device_name=dev1['name'])
+        self.assertEqual(check_mode, {'mode': 'on'})
+
+    def test_set_device_led_name_neg(self):
+        led_mode = 'dim'
+        new_mode = set_device_led(auth, led_mode,device_name='Doesnt exist')
+        self.assertEqual(new_mode, 'Device not found')
+
+    def test_set_device_led_mode_name_neg(self):
+        led_mode = 'banana'
+        new_mode = set_device_led(auth, led_mode,device_name=dev1['name'])
+        self.assertEqual(new_mode, 'mode setting not valid')
+
