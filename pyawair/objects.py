@@ -33,9 +33,9 @@ class AwairDev:
         self._device_name = device_name
 
         # Get device type and ID from name
-        devices = pyawair.data.get_all_devices(self._auth)
-        device_names = [d['name'] for d in devices]
-        if not device_name in device_names:
+        devices = pyawair.data.get_all_devices(self._auth) # query all devices
+        device_names = [d['name'] for d in devices] # get a list of all the device names
+        if not device_name in device_names: # check if the device name from the object occurs in the list of device names
             raise ValueError(
                 "This device name ({}) does not exist in your Awair account. Be aware that the device name is capital sensitive.".format(
                     device_name))
@@ -61,8 +61,8 @@ class AwairDev:
         :return: The value of the specific indicator.
         """
         now = datetime.datetime.now()
-        delta_min = (now - self._last_update).total_seconds() / 60
-        if delta_min > self._cache_time:
+        delta_min = (now - self._last_update).total_seconds() / 60 # get the minutes since the last update
+        if delta_min > self._cache_time: # refresh if last refresh was more than cache_time minutes ago
             self.refresh()
         return self._data[indicator]
 
