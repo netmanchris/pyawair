@@ -229,7 +229,7 @@ class TestSetDevicePreference(TestCase):
         # self.assertIs(type(preference['message']), str)
         # self.assertEquals(preference['message'],"success")
         dev_details = get_dev_details(auth, device_name=dev1['name'])
-        self.assertEquals(dev_details['preference'].lower(), mode)
+        self.assertEqual(dev_details['preference'].lower(), mode)
 
     def test_set_dev_preference_id_bad_mode_neg(self):
         """
@@ -251,7 +251,7 @@ class TestSetDevicePreference(TestCase):
         #self.assertIs(type(preference['message']), str)
         #self.assertEquals(preference['message'],"success")
         dev_details = get_dev_details(auth, device_name=dev1['name'])
-        self.assertEquals(dev_details['preference'].lower(), mode )
+        self.assertEqual(dev_details['preference'].lower(), mode )
 
     def test_set_dev_preference_no_device_neg(self):
         """
@@ -332,9 +332,9 @@ class TestSetDeviceTimezone(TestCase):
         timezone = set_device_timezone(auth, new_timezone,device_type=dev1['deviceType'],
                                            device_id=dev1['deviceId'])
         self.assertIs(type(timezone['message']), str)
-        self.assertEquals(timezone['message'], "success")
+        self.assertEqual(timezone['message'], "success")
         dev_details = get_dev_details(auth, device_name=dev1['name'])
-        self.assertEquals(dev_details['timezone'].lower(), new_timezone.lower())
+        self.assertEqual(dev_details['timezone'].lower(), new_timezone.lower())
 
     def test_set_dev_timezone_pos(self):
         """
@@ -343,9 +343,9 @@ class TestSetDeviceTimezone(TestCase):
         new_timezone = 'us/pacific'
         timezone = set_device_timezone(auth, new_timezone, device_name=dev1['name'])
         self.assertIs(type(timezone['message']), str)
-        self.assertEquals(timezone['message'],"success")
+        self.assertEqual(timezone['message'],"success")
         dev_details = get_dev_details(auth, device_name=dev1['name'])
-        self.assertEquals(dev_details['timezone'].lower(), new_timezone.lower() )
+        self.assertEqual(dev_details['timezone'].lower(), new_timezone.lower() )
 
     def test_set_dev_timezone_neg(self):
         """
