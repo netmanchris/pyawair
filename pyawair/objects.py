@@ -103,10 +103,10 @@ class AwairDev:
                                                            device_type=self._type)
         elif self._aggregate_type == '5-minute':
             data: list = pyawair.data.get_5_min_average(self._auth, device_id=self._id,
-                                                        device_type=self._type)
+                                                        device_type=self._type, limit=1)
         elif self._aggregate_type == '15-minute':
             data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id,
-                                                         device_type=self._type)
+                                                         device_type=self._type, limit=1)
 
         self._data['score'] = data[-1]['score']
         self._data['temp'] = data[-1]['sensors'][0]['value']
