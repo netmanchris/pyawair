@@ -255,7 +255,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
         data = json.dumps({'timezone': timezone})
-        response = requests.post(f_url, data=data, headers=auth.headers)
+        response = requests.put(f_url, data=data, headers=auth.headers)
         pyawair.conn.check_response(response)
         return json.loads(response.text)
     else:
@@ -267,7 +267,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
                 data_url = "/timezone"
                 f_url = base_url + dev_url + data_url
                 data = json.dumps({'timezone': timezone})
-                response = requests.post(f_url, data=data, headers=auth.headers)
+                response = requests.put(f_url, data=data, headers=auth.headers)
                 pyawair.conn.check_response(response)
                 return json.loads(response.text)
             else:
@@ -300,7 +300,7 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
         f_url = base_url + dev_url + data_url
         if led_mode in modes:
             data = json.dumps({'mode': led_mode})
-            response = requests.post(f_url, data=data, headers=auth.headers)
+            response = requests.put(f_url, data=data, headers=auth.headers)
             pyawair.conn.check_response(response)
             return json.loads(response.text)
         else:
@@ -315,7 +315,7 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
                 f_url = base_url + dev_url + data_url
                 if led_mode in modes:
                         data = json.dumps({'mode': led_mode})
-                        response = requests.post(f_url, data=data, headers=auth.headers)
+                        response = requests.put(f_url, data=data, headers=auth.headers)
                         pyawair.conn.check_response(response)
                         return json.loads(response.text)
                 else:
