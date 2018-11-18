@@ -3,10 +3,10 @@ import requests
 import pyawair.conn
 
 
-DEVICE_SENSORS = {"AWAIR": ["temp", "humid", "co2", "voc", "dust"],
-                  "Glow": ["temp", "humid", "co2", "voc"],
-                  "Mint": ["temp", "humid", "voc", "pm25", "pm10"],
-                  "Omni": ["temp", "humid", "co2", "voc", "pm25", "pm10"],
+DEVICE_SENSORS = {"awair": ["temp", "humid", "co2", "voc", "dust"],
+                  "awair-glow": ["temp", "humid", "co2", "voc"],
+                  "awair-mint": ["temp", "humid", "voc", "pm25", "pm10"],
+                  "awair-omni": ["temp", "humid", "co2", "voc", "pm25", "pm10"],
                   "Awair 2nd Edition": ["temp", "humid", "co2", "voc", "pm25", "pm10"]}
 
 
