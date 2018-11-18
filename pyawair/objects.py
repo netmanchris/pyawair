@@ -5,6 +5,7 @@
 
 import pyawair.data
 from pyawair.auth import AwairAuth
+from pyawair.devices import DEVICE_SENSORS
 import datetime
 
 
@@ -109,10 +110,18 @@ class AwairDev:
                                                          device_type=self._type, limit=1)
 
         self._data['score'] = data[-1]['score']
-        self._data['temp'] = data[-1]['sensors'][0]['value']
-        self._data['humid'] = data[-1]['sensors'][1]['value']
-        self._data['co2'] = data[-1]['sensors'][2]['value']
-        self._data['voc'] = data[-1]['sensors'][3]['value']
-        if self._type != 'awair-glow':   #Glow doesn't have dust sensor so failing
+        if "temp" in DEVICE_SENSORS[self._type]:
+            self._data['temp'] = data[-1]['sensors'][0]['value']
+        if "humid" in DEVICE_SENSORS[self._type]:
+            self._data['humid'] = data[-1]['sensors'][1]['value']
+        if "co2" in DEVICE_SENSORS[self._type]:
+            self._data['co2'] = data[-1]['sensors'][2]['value']
+        if "voc" in DEVICE_SENSORS[self._type]:
+            self._data['voc'] = data[-1]['sensors'][3]['value']
+        if "dust" in DEVICE_SENSORS[self._type]:
             self._data['dust'] = data[-1]['sensors'][4]['value']
+        if "pm25" in DEVICE_SENSORS[self._type]:
+            self._data['pm25'] = data[-1]['sensors'][5]['value']
+        if "pm10" in DEVICE_SENSORS[self._type]:
+            self._data['pm10'] = data[-1]['sensors'][6]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update
