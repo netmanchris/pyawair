@@ -5,6 +5,7 @@
 
 import pyawair.data
 from pyawair.auth import AwairAuth
+from pyawair.devices import DEVICE_SENSORS
 import datetime
 
 
@@ -108,11 +109,20 @@ class AwairDev:
             data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id,
                                                          device_type=self._type, limit=1)
 
+        components = [d['comp'] for d in data[-1]['sensors']]
         self._data['score'] = data[-1]['score']
-        self._data['temp'] = data[-1]['sensors'][0]['value']
-        self._data['humid'] = data[-1]['sensors'][1]['value']
-        self._data['co2'] = data[-1]['sensors'][2]['value']
-        self._data['voc'] = data[-1]['sensors'][3]['value']
-        if self._type != 'awair-glow':   #Glow doesn't have dust sensor so failing
-            self._data['dust'] = data[-1]['sensors'][4]['value']
+        if "TEMP" in components:
+            self._data['temp'] = data[-1]['sensors'][components.index('TEMP')]['value']
+        if "HUMID" in components:
+            self._data['humid'] = data[-1]['sensors'][components.index('HUMID')]['value']
+        if "CO2" in components:
+            self._data['co2'] = data[-1]['sensors'][components.index('CO2')]['value']
+        if "VOC" in components:
+            self._data['voc'] = data[-1]['sensors'][components.index('VOC')]['value']
+        if "DUST" in components:
+            self._data['dust'] = data[-1]['sensors'][components.index('DUST')]['value']
+        if "PM25" in components:
+            self._data['pm25'] = data[-1]['sensors'][components.index('PM25')]['value']
+        if "PM10" in components:
+            self._data['pm10'] = data[-1]['sensors'][components.index('PM10')]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update

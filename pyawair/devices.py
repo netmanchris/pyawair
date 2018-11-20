@@ -3,6 +3,13 @@ import requests
 import pyawair.conn
 
 
+DEVICE_SENSORS = {"awair": ["temp", "humid", "co2", "voc", "dust"],
+                  "awair-glow": ["temp", "humid", "co2", "voc"],
+                  "awair-mint": ["temp", "humid", "voc", "pm25", "pm10"],
+                  "awair-omni": ["temp", "humid", "co2", "voc", "pm25", "pm10"],
+                  "awair-r2": ["temp", "humid", "co2", "voc", "pm25", "pm10"]}
+
+
 def get_user_data(auth):
     """
     Function to get the user data for the account linked to the token
