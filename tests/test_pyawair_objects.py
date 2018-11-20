@@ -43,7 +43,9 @@ class TestGetCurrentAirData(TestCase):
         self.assertEqual(score, 100.0)
         score = new_device.get_state('voc')
         self.assertEqual(score, 100.0)
-        score = new_device.get_state('dust')
+        score = new_device.get_state('pm25')
+        self.assertEqual(score, 100.0)
+        score = new_device.get_state('pm10')
         self.assertEqual(score, 100.0)
         new_device._cache_time = 0
         self.assertEqual(score, 100.0)
