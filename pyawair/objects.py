@@ -111,18 +111,18 @@ class AwairDev:
 
         components = [d['comp'] for d in data[-1]['sensors']]
         self._data['score'] = data[-1]['score']
-        if "temp" in DEVICE_SENSORS[self._type]:
+        if "TEMP" in components:
             self._data['temp'] = data[-1]['sensors'][components.index('TEMP')]['value']
-        if "humid" in DEVICE_SENSORS[self._type]:
+        if "HUMID" in components:
             self._data['humid'] = data[-1]['sensors'][components.index('HUMID')]['value']
-        if "co2" in DEVICE_SENSORS[self._type]:
+        if "CO2" in components:
             self._data['co2'] = data[-1]['sensors'][components.index('CO2')]['value']
-        if "voc" in DEVICE_SENSORS[self._type]:
+        if "VOC" in components:
             self._data['voc'] = data[-1]['sensors'][components.index('VOC')]['value']
-        if "dust" in DEVICE_SENSORS[self._type]:
+        if "DUST" in components:
             self._data['dust'] = data[-1]['sensors'][components.index('DUST')]['value']
-        if "pm25" in DEVICE_SENSORS[self._type]:
+        if "PM25" in components:
             self._data['pm25'] = data[-1]['sensors'][components.index('PM25')]['value']
-        if "pm10" in DEVICE_SENSORS[self._type]:
+        if "PM10" in components:
             self._data['pm10'] = data[-1]['sensors'][components.index('PM10')]['value']
         self._last_update = datetime.datetime.now()  # records the time of the last update
