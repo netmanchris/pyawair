@@ -1,12 +1,11 @@
 pyawair Python Wrapper for getawair.com Air Quality Sensors
-=======================
+===========================================================
 
 
 
 This project is offered under and Apache2 license and is not supported officialy by Awair.
 
-For more information, please visit the project home page at `GITHub.com <https://github
-.com/netmanchris/pyawair`_.
+For more information, please visit the project home page.
 
 
 What's Changed:
