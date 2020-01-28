@@ -165,6 +165,7 @@ Out[23]:
 ##### Get Raw Data
 
 ```python
+get_raw_data(auth, device_name='Bedroom')
 Out[24]: 
 [{'indices': [{'comp': 'TEMP', 'value': 0.0},
    {'comp': 'HUMID', 'value': 0.0},
