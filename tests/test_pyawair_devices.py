@@ -374,6 +374,7 @@ class TestSetDeviceLED(TestCase):
     ['general', 'productivity', 'sleep', 'allergy', 'baby']
     """
 
+
     def test_set_device_led_id_pos(self):
         led_mode = 'dim'
         new_mode = set_device_led(auth, led_mode,device_type=dev1['deviceType'],
