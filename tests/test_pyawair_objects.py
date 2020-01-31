@@ -34,21 +34,19 @@ class TestGetCurrentAirData(TestCase):
     def test_get_state_method(self):
         new_device = AwairDev(dev1['name'], auth)
         score = new_device.get_state('score')
-        self.assertEqual(score, 100.0)
+        self.assertEqual(score, 90.0)
         score = new_device.get_state('temp')
-        self.assertEqual(score, 100.0)
+        self.assertEqual(score, 69.45)
         score = new_device.get_state('humid')
-        self.assertEqual(score, 100.0)
+        self.assertEqual(score, 49.92)
         score = new_device.get_state('co2')
-        self.assertEqual(score, 100.0)
+        self.assertEqual(score, 419.0)
         score = new_device.get_state('voc')
-        self.assertEqual(score, 100.0)
-        score = new_device.get_state('pm25')
-        self.assertEqual(score, 100.0)
-        score = new_device.get_state('pm10')
-        self.assertEqual(score, 100.0)
-        new_device._cache_time = 0
-        self.assertEqual(score, 100.0)
+        self.assertEqual(score, 399.0)
+        score = new_device.get_state('dust')
+        self.assertEqual(score, 56.8)
+        #score = new_device.get_state('pm10')
+        #self.assertEqual(score, 100.0)
 
     def test_get_name_method(self):
         new_device = AwairDev(dev1['name'], auth)
@@ -88,17 +86,17 @@ class TestGetCurrentAirData(TestCase):
     def test_refresh_type_default_pos(self):
         new_device = AwairDev(dev1['name'], auth)
         new_device.refresh()
-        self.assertEqual(new_device._data['score'], 100.0)
+        self.assertEqual(new_device._data['score'], 90.0)
 
     def test_refresh_type_current_pos(self):
         new_device = AwairDev(dev1['name'], auth, aggregate_type='current')
         new_device.refresh()
-        self.assertEqual(new_device._data['score'], 100.0)
+        self.assertEqual(new_device._data['score'], 90.0)
 
     def test_refresh_type_5min_pos(self):
         new_device = AwairDev(dev1['name'], auth, aggregate_type='5-minute')
         new_device.refresh()
-        self.assertEqual(new_device._data['score'], 100.0)
+        self.assertEqual(new_device._data['score'], 90.0)
 
 
 
