@@ -24,7 +24,7 @@ class TestCheckResponse(TestCase):
     def test_check_response_pos(self):
         """
         """
-        response = requests.get("http://developer-apis.awair.is/v1/users/self/devices",
+        response = requests.get("https://developer-apis.awair.is/v1/users/self/devices",
                                 headers=auth.headers)
         good_response = check_response(response)
         self.assertEqual(good_response, None)
