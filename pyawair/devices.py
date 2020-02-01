@@ -86,7 +86,7 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
     """
     Function to get the timezone for a single specific devices for the account
     linked to the token. Refer to column TZ in
-    httpss://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     :param device_type:
     :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
     :param device_name: str which matches exactly to the name of a specific device
