@@ -245,7 +245,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
     :param auth:
     :param timezone: str value of the desired timezone.
     For specific values please see
-    httpss://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     :param device_name: str value of the name of the device
     :param device_type: str value of the device_type
     :param device_id: int or str value of the device_id (internal API id)
