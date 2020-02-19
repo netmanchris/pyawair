@@ -376,6 +376,8 @@ class TestSetDeviceLED(TestCase):
 
 
     def test_set_device_led_id_pos(self):
+        raise SkipTest
+        # skipping test as API was removed from Awair API
         led_mode = 'dim'
         new_mode = set_device_led(auth, led_mode,device_type=dev1['deviceType'],
                                            device_id=dev1['deviceId'])
@@ -385,12 +387,16 @@ class TestSetDeviceLED(TestCase):
         self.assertEqual(check_mode, {'mode': 'on'})
 
     def test_set_device_led_mode_id_neg(self):
+        raise SkipTest
+        # skipping test as API was removed from Awair API
         led_mode = 'banana'
         new_mode = set_device_led(auth, led_mode, device_type=dev1['deviceType'],
                                            device_id=dev1['deviceId'])
         self.assertEqual(new_mode, 'mode setting not valid')
 
     def test_set_device_led_name_pos(self):
+        raise SkipTest
+        # skipping test as API was removed from Awair API
         led_mode = 'dim'
         new_mode = set_device_led(auth, led_mode,device_name=dev1['name'])
 
@@ -398,11 +404,16 @@ class TestSetDeviceLED(TestCase):
         self.assertEqual(check_mode, {'mode': 'on'})
 
     def test_set_device_led_name_neg(self):
+        raise SkipTest
+        # skipping test as API was removed from Awair API
         led_mode = 'dim'
         new_mode = set_device_led(auth, led_mode,device_name='Doesnt exist')
         self.assertEqual(new_mode, 'Device not found')
 
     def test_set_device_led_mode_name_neg(self):
+        raise SkipTest
+        # skipping test as API was removed from Awair API
+
         led_mode = 'banana'
         new_mode = set_device_led(auth, led_mode,device_name=dev1['name'])
         self.assertEqual(new_mode, 'mode setting not valid')

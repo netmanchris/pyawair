@@ -16,7 +16,7 @@ def get_user_data(auth):
     :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
     :return: Object of Dict type which contains current user data for this account
     """
-    response = requests.get("http://developer-apis.awair.is/v1/users/self",
+    response = requests.get("https://developer-apis.awair.is/v1/users/self",
                             headers=auth.headers)
     return json.loads(response.text)
 
@@ -27,7 +27,7 @@ def get_all_devices(auth):
     :param auth: pyawair.auth.AwairAuth object which contains a valid authentication token
     :return: Object of Dict type which contains a list of all devices for this account
     """
-    response = requests.get("http://developer-apis.awair.is/v1/users/self/devices",
+    response = requests.get("https://developer-apis.awair.is/v1/users/self/devices",
                             headers=auth.headers)
     pyawair.conn.check_response(response)
     return json.loads(response.text)['devices']
@@ -60,7 +60,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
     :return: Object of Dict type which describes the LED mode of the specified devices
     """
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/led"
         f_url = base_url + dev_url + data_url
@@ -71,7 +71,7 @@ def get_dev_led_mode(auth, device_name=None, device_type=None, device_id=None):
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/led"
                 f_url = base_url + dev_url + data_url
@@ -95,7 +95,7 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
     :return: Object of Dict type which describes the timezone of the specified devices
     """
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
@@ -106,7 +106,7 @@ def get_dev_timezone(auth, device_name=None, device_type=None, device_id=None):
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/timezone"
                 f_url = base_url + dev_url + data_url
@@ -129,7 +129,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
     :return: Object of Dict type which describes the display mode of the specified devices
     """
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/display"
         f_url = base_url + dev_url + data_url
@@ -140,7 +140,7 @@ def get_dev_display_mode(auth, device_name=None, device_type=None, device_id=Non
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/display"
                 f_url = base_url + dev_url + data_url
@@ -163,7 +163,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
     :return: Object of Dict type which describes the power status of the specified devices
     """
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/power-status"
         f_url = base_url + dev_url + data_url
@@ -174,7 +174,7 @@ def get_dev_power_status(auth, device_name=None, device_type=None, device_id=Non
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/power-status"
                 f_url = base_url + dev_url + data_url
@@ -203,7 +203,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
     implemented
     """
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/preference"
         f_url = base_url + dev_url + data_url
@@ -220,7 +220,7 @@ def set_device_preference(auth, new_mode, device_name=None, device_type=None, de
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/preference"
                 f_url = base_url + dev_url + data_url
@@ -257,7 +257,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
 
     """
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/timezone"
         f_url = base_url + dev_url + data_url
@@ -269,7 +269,7 @@ def set_device_timezone(auth, timezone, device_name=None, device_type=None, devi
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/timezone"
                 f_url = base_url + dev_url + data_url
@@ -301,7 +301,7 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
     """
     modes = "on, dim, sleep"
     if device_name is None:
-        base_url = "http://developer-apis.awair.is/v1/devices/"
+        base_url = "https://developer-apis.awair.is/v1/devices/"
         dev_url = device_type + "/" + str(device_id)
         data_url = "/led"
         f_url = base_url + dev_url + data_url
@@ -316,7 +316,7 @@ def set_device_led(auth, led_mode, device_name=None, device_type=None, device_id
         devices = get_all_devices(auth)
         for dev in devices:
             if dev['name'] == device_name:
-                base_url = "http://developer-apis.awair.is/v1/devices/"
+                base_url = "https://developer-apis.awair.is/v1/devices/"
                 dev_url = dev['deviceType'] + "/" + str(dev['deviceId'])
                 data_url = "/led"
                 f_url = base_url + dev_url + data_url

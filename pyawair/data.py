@@ -18,7 +18,7 @@ def get_current_air_data(auth, device_name=None, device_type=None, device_id=Non
         device_type = awair_device.type()
         device_id = awair_device.id()
 
-    base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
+    base_url = "https://developer-apis.awair.is/v1/users/self/devices/"
     data_url = "/air-data/latest"
     data = pyawair.conn.get_data(auth, device_id, device_type, base_url, data_url)
     return data
@@ -44,7 +44,7 @@ def get_5_min_average(auth, device_name=None, device_type=None, device_id=None, 
         device_type = awair_device.type()
         device_id = awair_device.id()
 
-    base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
+    base_url = "https://developer-apis.awair.is/v1/users/self/devices/"
     data_url = "/air-data/5-min-avg"
     if desc:
         desc_param = "true"
@@ -76,7 +76,7 @@ def get_15_min_average(auth, device_name=None, device_type=None, device_id=None,
         device_type = awair_device.type()
         device_id = awair_device.id()
 
-    base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
+    base_url = "https://developer-apis.awair.is/v1/users/self/devices/"
     data_url = "/air-data/15-min-avg"
     if desc:
         desc_param = "true"
@@ -104,7 +104,7 @@ def get_raw_data(auth, device_name=None, device_type=None, device_id=None):
         device_type = awair_device.type()
         device_id = awair_device.id()
 
-    base_url = "http://developer-apis.awair.is/v1/users/self/devices/"
+    base_url = "https://developer-apis.awair.is/v1/users/self/devices/"
     data_url = "/air-data/raw"
     data = pyawair.conn.get_data(auth, device_id, device_type, base_url, data_url)
 

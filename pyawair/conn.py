@@ -23,7 +23,7 @@ def get_data(auth, id, type, base_url, data_url, args=''):
     :param auth: Authentication object as created by pyawair.auth.AwairAuth
     :param id: The Awair ID
     :param type: The Awair Type
-    :param base_url: The basic URL to the Awair API ("http://developer-apis.awair.is/v1/users/self/devices/")
+    :param base_url: The basic URL to the Awair API ("https://developer-apis.awair.is/v1/users/self/devices/")
     :param data_url: The data URL contains the specific data for a specific query (e.g. "/air-data/5-min-avg")
     :param args: Optional arguments
     :return: The response from the Awair API, as a JSON object.
