@@ -17,7 +17,7 @@ def check_response(response):
     return
 
 
-def get_data(auth, id, type, base_url, data_url, args=''):
+def get_data(auth, id, type, base_url, data_url, args='', params=None):
     """
     Builds the Awair API string and returns the response.
     :param auth: Authentication object as created by pyawair.auth.AwairAuth
@@ -25,13 +25,14 @@ def get_data(auth, id, type, base_url, data_url, args=''):
     :param type: The Awair Type
     :param base_url: The basic URL to the Awair API ("https://developer-apis.awair.is/v1/users/self/devices/")
     :param data_url: The data URL contains the specific data for a specific query (e.g. "/air-data/5-min-avg")
-    :param args: Optional arguments
+    :param args: Optional arguments to add to the URL
+    :param params: Optional dictionary of API parameters
     :return: The response from the Awair API, as a JSON object.
     """
     dev_url = type + "/" + str(id)
     f_url = base_url + dev_url + data_url + args
 
-    response = requests.get(f_url, headers=auth.headers) # Get the response from this URL
+    response = requests.get(f_url, headers=auth.headers, params=params) # Get the response from this URL
     check_response(response) # check if the response satisfies normal API results. If it doesn't it throws an error.
 
     return json.loads(response.text)['data']
